@@ -184,27 +184,32 @@ if (!localStorage.getItem("carsInitialized")) {
     let cars = JSON.parse(localStorage.getItem("cars")) || [];
 
     const defaultCars = [
-        {
-            name: "Mahindra Thar",
-            type: "SUV",
-            price: "3500"
-        },
-        {
-            name: "Honda City",
-            type: "Sedan",
-            price: "2500"
-        },
-        {
-            name: "BMW 3 Series",
-            type: "Luxury",
-            price: "5000"
-        },
-        {
-            name: "Maruti Swift",
-            type: "Hatchback",
-            price: "2000"
-        }
-    ];
+    {
+        name: "Mahindra Thar",
+        type: "SUV",
+        price: "3500"
+    },
+    {
+        name: "Honda City",
+        type: "Sedan",
+        price: "2500"
+    },
+    {
+        name: "BMW 3 Series",
+        type: "Luxury",
+        price: "5000"
+    },
+    {
+        name: "Maruti Swift",
+        type: "Hatchback",
+        price: "2000"
+    },
+    {
+        name: "Toyota Innova",
+        type: "SUV",
+        price: "3500"
+    }
+];
 
     defaultCars.forEach(function(defaultCar) {
 
