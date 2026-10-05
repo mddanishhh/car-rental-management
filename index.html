@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Car Rental Management</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                🚗 CarRental
+            </div>
+
+            <ul id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cars.html">Cars</a></li>
+                <a href="my-bookings.html">My bookings</a>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html" class="nav-button">Register</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <h1>Rent Your Perfect Car</h1>
+
+            <p>
+                Easy, fast and reliable car rental management.
+                Find the right car for your journey.
+            </p>
+
+            <a href="cars.html" class="main-button">
+                Browse Cars
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features Section -->
+    <section class="features">
+
+        <h2>Why Choose Us?</h2>
+
+        <div class="feature-container">
+
+            <div class="feature-card">
+                <h3>🚗 Wide Selection</h3>
+                <p>
+                    Choose from different types of cars
+                    according to your needs.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>⚡ Easy Booking</h3>
+                <p>
+                    Search for a car and submit your
+                    booking request quickly.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🔒 Reliable Service</h3>
+                <p>
+                    Manage your bookings and track
+                    their status easily.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Car Rental Management Platform
+        </p>
+
+        <p>
+            Team: The best one!!
+        </p>
+
+    </footer>
+    <script>
+
+    const navLinks = document.getElementById("navLinks");
+
+    const loggedIn = localStorage.getItem("loggedIn");
+
+    if (loggedIn === "true") {
+
+        navLinks.innerHTML = `
+            <li><a href="index.html">Home</a></li>
+            <li><a href="cars.html">Cars</a></li>
+            <li><a href="my-bookings.html">My Bookings</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+        `;
+
+    }
+
+
+    function logout() {
+
+        localStorage.removeItem("loggedIn");
+
+        alert("You have been logged out.");
+
+        window.location.href = "index.html";
+
+    }
+
+</script>
+
+</body>
+</html>

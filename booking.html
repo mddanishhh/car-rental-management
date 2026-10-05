@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Your Car - CarRental</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <h2>🚗 CarRental</h2>
+
+            <div>
+                <a href="index.html">Home</a>
+                <a href="cars.html">Cars</a>
+                <a href="my-bookings.html">My Bookings</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Booking Section -->
+    <main class="booking-container">
+
+        <div class="booking-card">
+
+            <h1>Book Your Car</h1>
+
+            <p class="booking-subtitle">
+                Complete the details below to reserve your car.
+            </p>
+
+            <!-- Selected Car -->
+            <div class="selected-car">
+                <h2 id="carName">Selected Car</h2>
+                <p id="carMessage">
+                    Your selected car will appear here.
+                </p>
+            </div>
+
+
+            <!-- Booking Form -->
+            <form id="bookingForm">
+
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="Enter your phone number"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required
+                    >
+                </div>
+
+                                    
+                <div class="date-row">
+
+                    <div class="form-group">
+                        <label for="pickup">Pickup Date</label>
+                        <input
+                            type="date"
+                            id="pickup"
+                            required
+                        >
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <label for="return">Return Date</label>
+                        <input
+                            type="date"
+                            id="return"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+
+                <button type="submit" class="confirm-btn">
+                    Confirm Booking
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Car Rental Management Platform</p>
+        <p>Team: The best one!!</p>
+    </footer>
+
+
+    <script>
+
+    // Get selected car from URL
+    const params = new URLSearchParams(window.location.search);
+    const car = params.get("car");
+
+    // Display selected car
+    if (car) {
+        document.getElementById("carName").textContent = "🚗 " + car;
+        document.getElementById("carMessage").textContent =
+            "You are booking this car.";
+    }
+
+    // Set today's date as minimum pickup date
+    const today = new Date().toISOString().split("T")[0];
+
+    document.getElementById("pickup").min = today;
+    document.getElementById("return").min = today;
+
+
+    // When pickup date changes
+    document.getElementById("pickup").addEventListener("change", function () {
+
+        document.getElementById("return").min = this.value;
+
+    });
+
+
+    // Booking form submission
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const pickup = document.getElementById("pickup").value;
+        const returnDate = document.getElementById("return").value;
+
+
+        // Check return date
+        if (returnDate < pickup) {
+
+            alert("Return date cannot be before pickup date.");
+
+            return;
+
+        }
+
+
+        // Create booking object
+        const booking = {
+
+            car: car || "Selected Car",
+            name: name,
+            email: email,
+            phone: phone,
+            pickup: pickup,
+            returnDate: returnDate,
+            status: "Pending"
+
+        };
+
+
+        // Get existing bookings
+        let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+
+        // Add new booking
+        bookings.push(booking);
+
+
+        // Save bookings
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+
+
+        // Confirmation
+        alert(
+            "Booking Confirmed! 🎉\n\n" +
+            "Car: " + booking.car + "\n" +
+            "Name: " + booking.name + "\n" +
+            "Email: " + booking.email + "\n" +
+            "Phone: " + booking.phone + "\n" +
+            "Pickup: " + booking.pickup + "\n" +
+            "Return: " + booking.returnDate + "\n" +
+            "Status: " + booking.status
+        );
+
+
+        // Clear form
+        this.reset();
+
+    });
+     
+     </script>
+
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Available Cars - CarRental</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav class="navbar">
+
+            <div class="logo">
+                🚗 CarRental
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cars.html">Cars</a></li>
+                <li><a href="my-bookings.html">My Bookings</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html" class="nav-button">Register</a></li>
+            </ul>
+
+        </nav>
+    </header>
+
+
+    <!-- Cars Section -->
+    <main class="cars-page">
+
+        <h1>Available Cars</h1>
+
+        <p class="cars-subtitle">
+            Choose the perfect car for your journey.
+        </p>
+
+
+        <!-- Search -->
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="🔎 Search for a car..."
+            >
+
+        </div>
+
+
+        <!-- Filters -->
+        <div class="filters">
+
+            <button onclick="filterCars('all')">
+                All
+            </button>
+
+            <button onclick="filterCars('SUV')">
+                SUV
+            </button>
+
+            <button onclick="filterCars('Sedan')">
+                Sedan
+            </button>
+
+            <button onclick="filterCars('Hatchback')">
+                Hatchback
+            </button>
+
+            <button onclick="filterCars('Luxury')">
+                Luxury
+            </button>
+
+        </div>
+
+
+        <!-- Cars Container -->
+        <div class="cars-container" id="carsContainer">
+
+
+            
+           
+
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Car Rental Management Platform
+        </p>
+
+        <p>
+            Team: The best one!!
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        // Search cars
+        const searchInput =
+            document.getElementById("searchInput");
+
+        searchInput.addEventListener("input", function () {
+
+            const searchText =
+                searchInput.value.toLowerCase();
+
+            const cars =
+                document.querySelectorAll(".car-card");
+
+            cars.forEach(function (car) {
+
+                const carName =
+                    car.querySelector("h2")
+                       .textContent
+                       .toLowerCase();
+
+                if (carName.includes(searchText)) {
+
+                    car.style.display = "block";
+
+                } else {
+
+                    car.style.display = "none";
+
+                }
+
+            });
+
+        });
+
+
+        // Filter cars
+        function filterCars(type) {
+
+            const cars =
+                document.querySelectorAll(".car-card");
+
+            cars.forEach(function (car) {
+
+                if (
+                    type === "all" ||
+                    car.dataset.type === type
+                ) {
+
+                    car.style.display = "block";
+
+                } else {
+
+                    car.style.display = "none";
+
+                }
+
+            });
+
+        }
+
+
+        // Book car
+        function bookCar(carName) {
+
+    window.location.href =
+        "booking.html?car=" +
+        encodeURIComponent(carName);
+
+}
+// Add default cars to the saved car list
+if (!localStorage.getItem("carsInitialized")) {
+
+    let cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+    const defaultCars = [
+        {
+            name: "Mahindra Thar",
+            type: "SUV",
+            price: "3500"
+        },
+        {
+            name: "Honda City",
+            type: "Sedan",
+            price: "2500"
+        },
+        {
+            name: "BMW 3 Series",
+            type: "Luxury",
+            price: "5000"
+        },
+        {
+            name: "Maruti Swift",
+            type: "Hatchback",
+            price: "2000"
+        }
+    ];
+
+    defaultCars.forEach(function(defaultCar) {
+
+        const alreadyExists = cars.some(function(car) {
+            return car.name === defaultCar.name;
+        });
+
+        if (!alreadyExists) {
+            cars.push(defaultCar);
+        }
+    });
+
+    localStorage.setItem("cars", JSON.stringify(cars));
+    localStorage.setItem("carsInitialized", "true");
+}
+
+// Load all cars
+const savedCars = JSON.parse(localStorage.getItem("cars")) || [];
+
+const carsContainer = document.getElementById("carsContainer");
+
+savedCars.forEach(function(car) {
+    const carCard = document.createElement("div");
+
+    carCard.className = "car-card";
+    carCard.setAttribute("data-type", car.type);
+
+    // Choose image based on car name
+    let carImage = "images/car.jpg";
+
+    if (car.name === "Toyota Innova") {
+        carImage = "images/toyota-innova.jpg";
+    } else if (car.name === "Mahindra Thar") {
+        carImage = "images/mahindra-thar.jpg";
+    } else if (car.name === "Honda City") {
+        carImage = "images/honda-city.jpg";
+    } else if (car.name === "BMW 3 Series") {
+        carImage = "images/bmw-3-series.jpg";
+    } else if (car.name === "Maruti Swift") {
+        carImage = "images/maruti-swift.jpg";
+    }
+
+    carCard.innerHTML = `
+        <div class="car-image">
+            <img src="${carImage}" alt="${car.name}">
+        </div>
+
+        <div class="car-info">
+            <h2>${car.name}</h2>
+
+            <p class="car-type">
+                ${car.type}
+            </p>
+
+            <p>
+                ₹${car.price}/day
+            </p>
+
+            <button onclick="bookCar('${car.name}')">
+                Book Now
+            </button>
+        </div>
+    `;
+
+    carsContainer.appendChild(carCard);
+});
+
+
+    </script>
+
+</body>
+
+</html>
