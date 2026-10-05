@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Bookings - CarRental</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <h2>🚗 CarRental</h2>
+
+            <div>
+                <a href="index.html">Home</a>
+                <a href="cars.html">Cars</a>
+                <a href="my-bookings.html">My Bookings</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- My Bookings -->
+    <main class="bookings-container">
+
+        <h1>My Bookings</h1>
+
+        <p class="booking-subtitle">
+            View your car rental bookings and their current status.
+        </p>
+
+        <div id="bookingsList"></div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Car Rental Management Platform</p>
+        <p>Team: The best one!!</p>
+    </footer>
+
+
+    <script>
+
+        // Get saved bookings
+        const bookings =
+            JSON.parse(localStorage.getItem("bookings")) || [];
+
+        const bookingsList =
+            document.getElementById("bookingsList");
+
+
+        // Check if there are no bookings
+        if (bookings.length === 0) {
+
+            bookingsList.innerHTML =
+                "<p>No bookings found.</p>";
+
+        } else {
+
+            // Display every booking
+            bookings.forEach(function(booking, index) {
+
+                const bookingCard =
+                    document.createElement("div");
+
+                bookingCard.className = "booking-item";
+
+                bookingCard.innerHTML = `
+                    <h2>🚗 ${booking.car}</h2>
+
+                    <p><strong>Name:</strong> ${booking.name}</p>
+
+                    <p><strong>Email:</strong> ${booking.email}</p>
+
+                    <p><strong>Phone:</strong> ${booking.phone}</p>
+
+                    <p><strong>Pickup:</strong> ${booking.pickup}</p>
+
+                    <p><strong>Return:</strong> ${booking.returnDate}</p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="status">
+                            ${booking.status}
+                        </span>
+                    </p>
+                `;
+
+                bookingsList.appendChild(bookingCard);
+
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

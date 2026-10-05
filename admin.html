@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - CarRental</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <h2>🚗 CarRental Admin</h2>
+
+            <div>
+                <a href="index.html">Home</a>
+                <a href="cars.html">Cars</a>
+                <a href="my-bookings.html">My Bookings</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Admin Dashboard -->
+    <main class="admin-container">
+
+        <h1>Admin Dashboard</h1>
+        <h2>Add New Car</h2>
+
+<form id="carForm">
+    <input type="text" id="carName" placeholder="Car Name" required>
+
+    <input type="text" id="carType" placeholder="Car Type" required>
+
+    <input type="number" id="carPrice" placeholder="Price per Day" required>
+
+    <button type="submit">Add Car</button>
+</form>
+<h2>Manage Cars</h2>
+
+<div id="adminCars"></div>
+
+        <button onclick="logout()">Logout</button>
+        <p class="booking-subtitle">
+            Manage customer bookings and their status.
+        </p>
+
+        <div id="adminBookings"></div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Car Rental Management Platform</p>
+        <p>Team: The best one!!</p>
+    </footer>
+
+
+    <script>
+        // Check login status
+       const loggedIn = localStorage.getItem("loggedIn");
+       const userRole = localStorage.getItem("userRole");
+
+if (loggedIn !== "true" || userRole !== "admin") {
+    alert("You are not authorized to access the Admin Dashboard.");
+    window.location.href = "login.html";
+}
+
+        function displayBookings() {
+
+            const bookings =
+                JSON.parse(localStorage.getItem("bookings")) || [];
+
+            const adminBookings =
+                document.getElementById("adminBookings");
+
+
+            // Clear previous content
+            adminBookings.innerHTML = "";
+
+
+            // Check for bookings
+            if (bookings.length === 0) {
+
+                adminBookings.innerHTML =
+                    "<p>No bookings available.</p>";
+
+                return;
+
+            }
+
+
+            // Display bookings
+            bookings.forEach(function(booking, index) {
+
+                const bookingCard =
+                    document.createElement("div");
+
+                bookingCard.className = "booking-item";
+
+                bookingCard.innerHTML = `
+                    <h2>🚗 ${booking.car}</h2>
+
+                    <p><strong>Name:</strong> ${booking.name}</p>
+
+                    <p><strong>Email:</strong> ${booking.email}</p>
+
+                    <p><strong>Phone:</strong> ${booking.phone}</p>
+
+                    <p><strong>Pickup:</strong> ${booking.pickup}</p>
+
+                    <p><strong>Return:</strong> ${booking.returnDate}</p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        ${booking.status}
+                    </p>
+
+                    <button onclick="updateStatus(${index}, 'Confirmed')">
+                        Confirm
+                    </button>
+
+                    <button onclick="updateStatus(${index}, 'Cancelled')">
+                        Cancel
+                    </button>
+                    <button onclick="deleteBooking(${index})">Delete</button>
+                `;
+
+                adminBookings.appendChild(bookingCard);
+
+            });
+
+        }
+
+
+        // Update booking status
+        function updateStatus(index, newStatus) {
+
+            const bookings =
+                JSON.parse(localStorage.getItem("bookings")) || [];
+
+
+            bookings[index].status = newStatus;
+
+
+            localStorage.setItem(
+                "bookings",
+                JSON.stringify(bookings)
+            );
+
+
+            alert("Booking status updated to " + newStatus);
+
+
+            displayBookings();
+
+        }
+        function deleteBooking(index) {
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    bookings.splice(index, 1);
+
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+
+    alert("Booking deleted successfully!");
+
+    displayBookings();
+}
+
+
+        // Load bookings when page opens
+        displayBookings();
+
+        function logout() {
+    localStorage.removeItem("loggedIn");
+    alert("You have been logged out.");
+    window.location.href = "login.html";
+}
+document.getElementById("carForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const carName = document.getElementById("carName").value;
+    const carType = document.getElementById("carType").value;
+    const carPrice = document.getElementById("carPrice").value;
+
+    const car = {
+        name: carName,
+        type: carType,
+        price: carPrice
+    };
+
+    let cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+    cars.push(car);
+
+    localStorage.setItem("cars", JSON.stringify(cars));
+
+    alert("Car added successfully! 🚗");
+
+    this.reset();
+});
+function displayCars() {
+    const cars = JSON.parse(localStorage.getItem("cars")) || [];
+    const adminCars = document.getElementById("adminCars");
+
+    adminCars.innerHTML = "";
+
+    if (cars.length === 0) {
+        adminCars.innerHTML = "<p>No cars added yet.</p>";
+        return;
+    }
+
+    cars.forEach(function(car, index) {
+        const carItem = document.createElement("div");
+
+        carItem.className = "booking-item";
+
+        carItem.innerHTML = `
+    <h3>🚗 ${car.name}</h3>
+    <p><strong>Type:</strong> ${car.type}</p>
+    <p><strong>Price:</strong> ₹${car.price}/day</p>
+
+    <button onclick="editCar(${index})">
+        Edit
+    </button>
+
+    <button onclick="deleteCar(${index})">
+        Delete
+    </button>
+`;
+
+        adminCars.appendChild(carItem);
+    });
+}
+
+function deleteCar(index) {
+    let cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+    cars.splice(index, 1);
+
+    localStorage.setItem("cars", JSON.stringify(cars));
+
+    alert("Car deleted successfully! 🚗");
+
+    displayCars();
+}
+
+displayCars();
+function editCar(index) {
+    let cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+    const car = cars[index];
+
+    const newName = prompt("Enter new car name:", car.name);
+    if (newName === null) return;
+
+    const newType = prompt("Enter new car type:", car.type);
+    if (newType === null) return;
+
+    const newPrice = prompt("Enter new price per day:", car.price);
+    if (newPrice === null) return;
+
+    if (!newName || !newType || !newPrice) {
+        alert("Please enter all car details.");
+        return;
+    }
+
+    cars[index] = {
+        name: newName,
+        type: newType,
+        price: newPrice
+    };
+
+    localStorage.setItem("cars", JSON.stringify(cars));
+
+    alert("Car updated successfully! 🚗");
+
+    displayCars();
+}
+    </script>
+
+</body>
+
+</html>
