@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Car Rental Management</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -15,18 +15,34 @@
     <header>
         <nav class="navbar">
 
-            <div class="logo">
-                🚗 CarRental
-            </div>
+           <div class="logo">
+    <span class="logo-mark">
+    <svg viewBox="0 0 64 40" width="42" height="28"
+         fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 25L13 14C14 11 17 9 21 9H43C47 9 50 12 51 15L55 25"
+              stroke="#ff6b00" stroke-width="3" stroke-linecap="round"/>
+        <path d="M5 25H59V32H5V25Z"
+              fill="#ff6b00"/>
+        <path d="M17 14H47L51 24H13L17 14Z"
+              fill="#101820" stroke="#ff6b00" stroke-width="2"/>
+        <circle cx="17" cy="32" r="5" fill="#ffffff"
+                stroke="#ff6b00" stroke-width="2"/>
+        <circle cx="47" cy="32" r="5" fill="#ffffff"
+                stroke="#ff6b00" stroke-width="2"/>
+    </svg>
+</span>
+    <span class="logo-name">
+        CAR<span class="logo-accent">RENTAL</span>
+    </span>
+</div>
 
-            <ul id="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="cars.html">Cars</a></li>
-                <a href="my-bookings.html">My bookings</a>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="register.html" class="nav-button">Register</a></li>
-            </ul>
-
+<ul id="nav-links" class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="cars.html">Cars</a></li>
+    <li><a href="my-bookings.html">My Bookings</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="register.html" class="nav-button">Register</a></li>
+</ul>
         </nav>
     </header>
 
@@ -52,40 +68,52 @@
     </section>
 
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Premium Features Section -->
+<section class="features">
 
-        <h2>Why Choose Us?</h2>
+    <p class="section-tag">THE CARRENTAL ADVANTAGE</p>
 
-        <div class="feature-container">
+    <h2>Why Choose <span>CarRental?</span></h2>
 
-            <div class="feature-card">
-                <h3>🚗 Wide Selection</h3>
-                <p>
-                    Choose from different types of cars
-                    according to your needs.
-                </p>
-            </div>
+    <p class="features-subtitle">
+        More than just a ride. Experience comfort, convenience and confidence.
+    </p>
 
-            <div class="feature-card">
-                <h3>⚡ Easy Booking</h3>
-                <p>
-                    Search for a car and submit your
-                    booking request quickly.
-                </p>
-            </div>
+    <div class="feature-container">
 
-            <div class="feature-card">
-                <h3>🔒 Reliable Service</h3>
-                <p>
-                    Manage your bookings and track
-                    their status easily.
-                </p>
-            </div>
-
+        <div class="feature-card selection-card">
+            <div class="feature-icon">🏁</div>
+            <h3>Premium Fleet</h3>
+            <p>
+                Explore a carefully selected collection of vehicles,
+                from stylish city cars to powerful luxury rides.
+            </p>
+            <span class="feature-label">FIND YOUR PERFECT RIDE</span>
         </div>
 
-    </section>
+        <div class="feature-card booking-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Effortless Booking</h3>
+            <p>
+                Find your ideal car and submit your booking request
+                through a simple and convenient process.
+            </p>
+            <span class="feature-label">BOOK IN JUST A FEW STEPS</span>
+        </div>
+
+        <div class="feature-card security-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Trusted Experience</h3>
+            <p>
+                Keep track of your reservations and check booking
+                status through your personal dashboard.
+            </p>
+            <span class="feature-label">YOUR JOURNEY, YOUR CONTROL</span>
+        </div>
+
+    </div>
+
+</section>
 
 
     <!-- Footer -->
@@ -102,7 +130,7 @@
     </footer>
     <script>
 
-    const navLinks = document.getElementById("navLinks");
+    const navLinks = document.getElementById("nav-links");
 
     const loggedIn = localStorage.getItem("loggedIn");
 

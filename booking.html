@@ -14,16 +14,32 @@
 
     <!-- Navigation -->
     <header>
-        <nav>
-            <h2>🚗 CarRental</h2>
+    <nav class="navbar">
 
-            <div>
-                <a href="index.html">Home</a>
-                <a href="cars.html">Cars</a>
-                <a href="my-bookings.html">My Bookings</a>
-            </div>
-        </nav>
-    </header>
+        <div class="logo">
+            <span class="logo-mark">
+                <svg viewBox="0 0 64 40" width="42" height="28"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 25L13 14C14 11 17 9 21 9H43C47 9 50 12 51 15L55 25"
+                          stroke="#ff6b00" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M5 25H59V32H5V25Z" fill="#ff6b00"/>
+                    <path d="M17 14H47L51 24H13L17 14Z"
+                          fill="#101820" stroke="#ff6b00" stroke-width="2"/>
+                    <circle cx="17" cy="32" r="5" fill="white" stroke="#ff6b00" stroke-width="2"/>
+                    <circle cx="47" cy="32" r="5" fill="white" stroke="#ff6b00" stroke-width="2"/>
+                </svg>
+            </span>
+            <span class="logo-name">CAR<span class="logo-accent">RENTAL</span></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="cars.html">Cars</a></li>
+            <li><a href="my-bookings.html">My Bookings</a></li>
+        </ul>
+
+    </nav>
+</header>
 
 
     <!-- Booking Section -->
@@ -179,7 +195,7 @@
         // Create booking object
         const booking = {
 
-            car: car || "Selected Car",
+            car: car || "Car not selected",
             name: name,
             email: email,
             phone: phone,
