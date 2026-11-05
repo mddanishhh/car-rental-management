@@ -872,11 +872,11 @@ footer p:last-child {
 }
 
 /* PREMIUM BRAND LOGO */
-
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
 }
 
 .logo-mark {
@@ -888,6 +888,11 @@ footer p:last-child {
     font-weight: 800;
     letter-spacing: 1.5px;
     color: white;
+
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
 }
 
 .logo-accent {
@@ -1666,4 +1671,81 @@ footer p:last-child {
     color: #101820;
     text-align: center;
     margin-bottom: 12px;
+}
+
+/* =========================
+   MOBILE NAVBAR RESPONSIVE FIX
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        justify-content: center;
+        gap: 15px;
+        padding: 16px 12px;
+        width: 100%;
+    }
+
+    .logo {
+        justify-content: center;
+    }
+
+    .logo-name {
+        font-size: 21px;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px 18px;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-links li {
+        list-style: none;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .nav-links .nav-button {
+        padding: 8px 13px;
+    }
+}
+
+/* MOBILE HERO BUTTON FIX */
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: 700px;
+        background-position: center center;
+    }
+
+    .hero-content {
+        padding: 35px 15px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+        line-height: 1.2;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .main-button {
+        position: relative;
+        z-index: 2;
+        margin-bottom: 30px;
+    }
 }
