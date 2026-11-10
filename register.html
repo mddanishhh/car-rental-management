@@ -54,42 +54,58 @@
 
         <form id="registerForm">
 
-            <div class="auth-field">
-                <label for="name">Full Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Enter your full name"
-                    required
-                >
-            </div>
+    <div class="auth-field">
+        <label for="email">Email Address</label>
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email address"
+            required
+        >
+    </div>
 
-            <div class="auth-field">
-                <label for="email">Email Address</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email address"
-                    required
-                >
-            </div>
+    <div class="auth-field">
+        <label for="password">Password</label>
 
-            <div class="auth-field">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Create a password"
-                    required
-                >
-            </div>
+        <div class="password-wrapper">
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                required
+            >
 
-            <button type="submit" class="auth-submit">
-                Create Account →
+            <button
+                type="button"
+                id="togglePassword"
+                class="toggle-password"
+                aria-label="Show password"
+            >
+                <svg id="eyeIcon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="21"
+                    height="21"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <path d="M3 3l18 18"/>
+                    <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"/>
+                    <path d="M9.88 5.09A10.94 10.94 0 0 1 12 4.9c5 0 9 4.5 10 7.1a11.8 11.8 0 0 1-3 4.2"/>
+                    <path d="M6.61 6.61A11.8 11.8 0 0 0 2 12c1 2.6 5 7.1 10 7.1a10.9 10.9 0 0 0 4-.75"/>
+                </svg>
             </button>
+        </div>
+    </div>
 
-        </form>
+    <button type="submit" class="auth-submit">
+        Create Account →
+    </button>
 
+</form>
         <p class="auth-register">
             Already have an account?
             <a href="login.html">Login here</a>
@@ -105,45 +121,57 @@
 
 
     <script>
+const registerForm = document.getElementById("registerForm");
 
-        document
-            .getElementById("registerForm")
-            .addEventListener("submit", function(event) {
+registerForm.addEventListener("submit", function(event) {
+    event.preventDefault();
 
-                event.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
+    const user = {
+        email: email,
+        password: password,
+        role: "customer"
+    };
 
-                const name =
-                    document.getElementById("name").value;
+    localStorage.setItem("user", JSON.stringify(user));
 
-                const email =
-                    document.getElementById("email").value;
+    alert("Registration successful! 🎉");
 
-                const password =
-                    document.getElementById("password").value;
+    window.location.href = "login.html";
+});
 
+const password = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+const eyeIcon = document.getElementById("eyeIcon");
 
-                const user = {
-                   name: name,
-                   email: email,
-                   password: password,
-                   role: "customer"
-                };
+togglePassword.addEventListener("click", function() {
 
+    if (password.type === "password") {
 
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(user)
-                );
+        password.type = "text";
+        togglePassword.setAttribute("aria-label", "Hide password");
 
+        eyeIcon.innerHTML = `
+            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+            <circle cx="12" cy="12" r="3"/>
+        `;
 
-                alert("Registration successful! 🎉");
+    } else {
 
+        password.type = "password";
+        togglePassword.setAttribute("aria-label", "Show password");
 
-                window.location.href = "login.html";
+        eyeIcon.innerHTML = `
+            <path d="M3 3l18 18"/>
+            <path d="M10.58 10.58a2 2 0 0 0 2.83 2.83"/>
+            <path d="M9.88 5.09A10.94 10.94 0 0 1 12 4.9c5 0 9 4.5 10 7.1a11.8 11.8 0 0 1-3 4.2"/>
+            <path d="M6.61 6.61A11.8 11.8 0 0 0 2 12c1 2.6 5 7.1 10 7.1a10.9 10.9 0 0 0 4-.75"/>
+        `;
 
-            });
-
+    }
+});
     </script>
 
 </body>
